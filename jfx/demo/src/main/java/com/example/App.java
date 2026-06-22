@@ -1,12 +1,15 @@
 package com.example;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
@@ -21,25 +24,19 @@ public class App extends Application {
 
     @Override
     public void start(Stage window) throws IOException {
-       BorderPane layout = new BorderPane();
-      
+        TextField leftText = new TextField();
+        TextField rightText = new TextField();
+        Button button = new Button ("Copy");
 
-       HBox buttons = new HBox();
-       buttons.setSpacing(10);
-       buttons.getChildren().add(new Button("First"));
-       buttons.getChildren().add(new Button("Second"));
-       buttons.getChildren().add(new Button("Third"));
+        button.setOnAction((event)-> {
+            rightText.setText(leftText.getText());
+        });
 
-       VBox texts = new VBox();
-       texts.setSpacing(10);
-       texts.getChildren().add(new Label("First"));
-       texts.getChildren().add(new Label("Second"));
-       texts.getChildren().add(new Label("Third"));
+        HBox componentGroup = new HBox();
+        componentGroup.setSpacing(20);
+        componentGroup.getChildren().addAll(leftText,button,rightText);
 
-       layout.setTop(buttons);
-       layout.setLeft(texts);
-
-       Scene view = new Scene(layout);
+       Scene view = new Scene(componentGroup);
 
        window.setScene(view);
        window.show();
