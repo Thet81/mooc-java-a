@@ -1,6 +1,8 @@
 package com.example;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * JavaFX App
@@ -26,6 +29,26 @@ public class App extends Application {
     public void start(Stage window) throws IOException {
         TextField leftText = new TextField();
         TextField rightText = new TextField();
+
+        // leftText.textProperty().addListener(new ChangeListener<String>() {
+        //     @Override
+        //     public void changed(ObservableValue<? extends String> change, String oldValue, String newValue){
+        //         System.out.println(oldValue + "->" + newValue);
+        //         rightText.setText(newValue);
+        //     }
+        // });
+        // ... is same as 
+        leftText.textProperty().addListener((change,oldValue,newValue)-> {
+            int characters = newValue.length();
+            String[] parts = newValue.split(" ");
+            int words = parts.length;
+
+            String longest = Arrays.stream(parts)
+                .sorted((s1, s2)-> s2.length() - s1.length())
+                .findFirst()
+                .get();
+            rightText.setText(longest);
+        }); 
         Button button = new Button ("Copy");
 
         button.setOnAction((event)-> {
