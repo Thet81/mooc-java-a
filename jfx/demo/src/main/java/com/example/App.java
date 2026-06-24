@@ -27,6 +27,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage window) throws IOException {
+        Parameters params = getParameters();
+        String organization = params.getNamed().get("organization");
+        String course = params.getNamed().get("course");
+
+        window.setTitle(organization + ":" + course);
         TextField leftText = new TextField();
         TextField rightText = new TextField();
 
@@ -65,8 +70,8 @@ public class App extends Application {
        window.show();
     }
 
-    public static void main(String[] args) {
-        launch(App.class);
-    }
+    // public static void main(String[] args) {
+    //     launch(App.class);
+    // }
 
 }
