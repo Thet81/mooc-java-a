@@ -31,43 +31,24 @@ public class App extends Application {
         String organization = params.getNamed().get("organization");
         String course = params.getNamed().get("course");
 
-        window.setTitle(organization + ":" + course);
-        TextField leftText = new TextField();
-        TextField rightText = new TextField();
+        window.setTitle(organization + " : " + course);
+        
+        Button back = new Button("...back");
+        Button forth = new Button("...forth");
 
-        // leftText.textProperty().addListener(new ChangeListener<String>() {
-        //     @Override
-        //     public void changed(ObservableValue<? extends String> change, String oldValue, String newValue){
-        //         System.out.println(oldValue + "->" + newValue);
-        //         rightText.setText(newValue);
-        //     }
-        // });
-        // ... is same as 
-        leftText.textProperty().addListener((change,oldValue,newValue)-> {
-            int characters = newValue.length();
-            String[] parts = newValue.split(" ");
-            int words = parts.length;
+        Scene first = new Scene(back);
+        Scene second = new Scene(forth);
 
-            String longest = Arrays.stream(parts)
-                .sorted((s1, s2)-> s2.length() - s1.length())
-                .findFirst()
-                .get();
-            rightText.setText(longest);
-        }); 
-        Button button = new Button ("Copy");
-
-        button.setOnAction((event)-> {
-            rightText.setText(leftText.getText());
+        back.setOnAction((event)-> {
+            window.setScene(second);
         });
 
-        HBox componentGroup = new HBox();
-        componentGroup.setSpacing(20);
-        componentGroup.getChildren().addAll(leftText,button,rightText);
+        forth.setOnAction((event)-> {
+            window.setScene(first);
+        });
 
-       Scene view = new Scene(componentGroup);
-
-       window.setScene(view);
-       window.show();
+        window.setScene(first);
+        window.show();
     }
 
     // public static void main(String[] args) {
