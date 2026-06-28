@@ -8,19 +8,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class InputView{
+public class PracticeView {
     private Dictionary dictionary;
+    private String word;
 
-    public InputView(Dictionary dictionary){
+    public PracticeView(Dictionary dictionary){
         this.dictionary = dictionary;
+        this.word = dictionary.getRandomWord();
     }
 
     public Parent getView(){
         GridPane layout = new GridPane();
-
-        Label wordInstruction = new Label("Word");
-        TextField wordField = new TextField();
-        Label translationInstruction = new Label("Translation");
+        Label wordInstruction = new Label("Translate the word " + this.word + " ");
         TextField translationField = new TextField();
 
         layout.setAlignment(Pos.CENTER);
@@ -28,32 +27,28 @@ public class InputView{
         layout.setHgap(10);
         layout.setPadding(new Insets(10,10,10,10));
 
-        Button addButton = new Button("Add the word pair");
+        Button addButton = new Button("Check");
+        Label feedBack = new Label("");
         layout.add(wordInstruction,0,0);
-        layout.add(wordField,0,1);
-        layout.add(translationInstruction,0,2);
-        layout.add(translationField,0,3);
-        layout.add(addButton,0,4);
+        layout.add(translationField,0,1);
+        layout.add(addButton,0,2);
+        layout.add(feedBack,0,3);
         addButton.setOnMouseClicked((event)-> {
-            String word = wordField.getText();
             String translation = translationField.getText();
-
-            dictionary.add(word,translation);
-            wordField.clear();
+            if (dictionary.get(word).equals(translation)){
+                feedBack.setText("Correct");
+            }else {
+                feedBack.setText("Incorrect! The translation for the word " + word + " is " + dictionary.get(word));
+                return;
+            }
+            this.word = this.dictionary.getRandomWord();
+            wordInstruction.setText("Translate the word "+ this.word);
             translationField.clear();
         });
         return layout;
     }
 
 }
-
-
-
-
-
-
-
-
 
 
 
