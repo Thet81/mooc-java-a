@@ -20,7 +20,7 @@ public class PieChartSample extends Application {
                 new PieChart.Data("Grapefruit",13),
                 new PieChart.Data("Oranges",25),
                 new PieChart.Data("Plums",10),
-                new PieChart.Data("Pears",22)
+                new PieChart.Data("Pears",50)
         );
 
         final PieChart chart = new PieChart(pieChartData);
